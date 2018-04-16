@@ -13,12 +13,23 @@ import {
   Left,
   Button,
   Icon,
-  Title
+  Title,
+  Right
 
 } from 'native-base';
 import { Actions } from 'react-native-router-flux';
 
 class StudentDetails extends Component {
+  constructor(props) {
+    super(props);
+    this.openDrawer = this.openDrawer.bind(this);
+}
+  openDrawer = () => {
+    console.log('open drawer');
+    Actions.refresh({key: 'drawer', open: true });
+    // console.log(Actions.get('drawer'));
+    // this.drawer._root.open();
+  };
   getStudents() {
     const list = [];
     for (let i = 0; i < this.props.students.length; i++) {
@@ -56,6 +67,13 @@ class StudentDetails extends Component {
           <Body>
             <Title>Student Details</Title>
           </Body>
+          <Right>
+            <Button
+              transparent onPress={this.openDrawer}
+            >
+              <Icon name='md-menu' />
+            </Button>
+          </Right>
         </Header>
         <Content>{this.getStudents()}</Content>
       </Container>
